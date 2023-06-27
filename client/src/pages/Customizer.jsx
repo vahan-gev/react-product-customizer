@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
-import config from "../config/config";
 import state from "../store";
-import { download } from "../assets";
-import { downloadCanvasToImage, reader } from "../config/helpers";
+import { reader } from "../config/helpers";
 import { EditorTabs, FilterTabs, DecalTypes } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import { ColorPicker, CustomButton, FilePicker, Tab } from "../components";
@@ -90,9 +88,26 @@ const Customizer = () => {
           >
             <CustomButton
               type="filled"
+              title="Reset"
+              handleClick={() => {
+                setActiveEditorTab("");
+
+                state.color = "#EFBD48";
+                state.logoDecal = "./threejs.png";
+                state.fullDecal = "./threejs.png";
+              }}
+              customStyles="w-fit mx-1 px-4 py-2.5 font-bold text-sm"
+            />
+            <CustomButton
+              type="filled"
               title="Go Back"
-              handleClick={() => (state.intro = true)}
-              customStyles="w-fit px-4 py-2.5 font-bold text-sm"
+              handleClick={() => {
+                setActiveEditorTab("");
+                setTimeout(() => {
+                  state.intro = true;
+                }, 10);
+              }}
+              customStyles="w-fit mx-1 px-4 py-2.5 font-bold text-sm"
             />
           </motion.div>
           <motion.div
